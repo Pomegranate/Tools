@@ -2,7 +2,7 @@ node_modules/
 .nyc_output/
 coverage/
 .idea/
-PluginTools/
+/PluginTools/
 *.off/
 *.sql
 *.sqlite
