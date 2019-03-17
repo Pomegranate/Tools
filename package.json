@@ -1,6 +1,6 @@
 {
   "name": "@pomegranate/plugin-tools",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Everything needed to create, export and publish a Pomegranate plugin.",
   "main": "index.js",
   "files": [
