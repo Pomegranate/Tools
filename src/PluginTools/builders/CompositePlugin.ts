@@ -34,7 +34,7 @@ export interface CompositeConfiguration extends CommonConfiguration<CompositeCon
   frameworkPlugin?: boolean
 }
 
-export type CompositePluginTypes = EffectConfigTypes | InjectableConfigTypes | LoghandlerConfigTypes
+export type CompositePluginTypes = EffectConfigTypes | InjectableConfigTypes | LoghandlerConfigTypes | CompositeConfigTypes
 
 export interface compositeValue {
   injectableParam: string,

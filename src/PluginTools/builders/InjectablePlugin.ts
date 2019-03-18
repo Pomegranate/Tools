@@ -21,7 +21,6 @@ export type InjectableB = 'InjectablePlugin'
 
 export type InjectableConfigTypes =
   'anything' |
-  'composite' |
   'factory' |
   'instance' |
   'merge'
