@@ -38,7 +38,7 @@ export interface InjectableHooks<T> extends CommonHooks {
   load(...injectable: InjectableParameter[]): Promise<T> | T
 }
 
-interface PomInjectablePlugin<TInjectable = any> extends PomegranatePlugin {
+export interface PomInjectablePlugin<TInjectable = any> extends PomegranatePlugin {
   configuration: InjectableConfiguration
   hooks: InjectableHooks<TInjectable>
   directories?: PluginDirectories
@@ -54,7 +54,7 @@ export interface GeneratedInjectable<TInjectable> extends GeneratedPlugin {
   state: PomInjectablePlugin<TInjectable>
 }
 
-interface InjectableBuilder<TInjectable> {
+export interface InjectableBuilder<TInjectable> {
   variables: (variables: PluginVariables) => InjectableBuilder<TInjectable>
   directories: (directories: PluginDirectories) => InjectableBuilder<TInjectable>
   configuration: (configuration: InjectableConfiguration) => InjectableBuilder<TInjectable>
