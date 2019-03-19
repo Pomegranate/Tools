@@ -47,7 +47,7 @@ export interface GeneratedEffect extends GeneratedPlugin {
   state: PomEffectPlugin
 }
 
-interface EffectBuilder {
+export interface EffectBuilder {
   variables: (variables: PluginVariables) => EffectBuilder
   directories: (directories: PluginDirectories) => EffectBuilder
   configuration: (configuration: EffectConfiguration) => EffectBuilder

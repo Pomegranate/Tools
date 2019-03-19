@@ -39,7 +39,7 @@ export interface GeneratedCommand extends GeneratedPlugin {
   state: PomCommandPlugin
 }
 
-interface CommandBuilder {
+export interface CommandBuilder {
   variables: (variables: PluginVariables) => CommandBuilder
   directories: (directories: PluginDirectories) => CommandBuilder
   configuration: (configuration: CommandConfiguration) => CommandBuilder
