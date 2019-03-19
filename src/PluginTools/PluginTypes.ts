@@ -9,7 +9,12 @@ export type InjectableParameter = any
 
 export interface PomegranatePluginConfig {
   name: string,
-  type: string
+  type: string,
+  frameworkPlugin?: boolean
+  injectableParam?: string
+  depends?: string[]
+  provides?: string[]
+  optional?: string[]
 }
 
 export interface PomegranatePlugin {
