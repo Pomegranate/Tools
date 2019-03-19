@@ -14,8 +14,25 @@ export interface PomegranatePluginConfig {
 
 export interface PomegranatePlugin {
   configuration: PomegranatePluginConfig
+  directories?: PluginDirectories
+  variables?: PluginVariables
+  hooks?: CommonHooks
+  commands?: PluginCommands,
+  applicationPlugins?: CommonBuilder[],
+  installs?: any
+  overrides?: any
 }
 
+// export interface PomegranatePlugin {
+//   directories?: (string | PluginDirectory)[]
+//   variables?: PluginVariables
+//   configuration: PluginConfiguration
+//   hooks?: PluginHooks
+//   commands?: PluginCommands,
+//   applicationPlugins?: PomegranatePlugin[],
+//   installs?: any
+//   overrides?: any
+// }
 
 export interface GeneratedPlugin {
   builderType: string,
