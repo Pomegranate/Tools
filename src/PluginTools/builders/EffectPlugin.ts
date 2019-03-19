@@ -31,7 +31,7 @@ export interface EffectConfiguration extends CommonConfiguration<EffectConfigTyp
 export interface EffectHooks extends CommonHooks {
 }
 
-interface PomEffectPlugin extends PomegranatePlugin {
+export interface PomEffectPlugin extends PomegranatePlugin {
   configuration: EffectConfiguration
   hooks: EffectHooks
   directories?: PluginDirectories

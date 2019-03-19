@@ -31,7 +31,7 @@ export interface GeneratedApplication extends GeneratedPlugin {
   state: PomApplicationPlugin
 }
 
-interface ApplicationBuilder {
+export interface ApplicationBuilder {
   configuration: (configuration: ApplicationConfiguration) => ApplicationBuilder
   applicationPlugins: (applicationPlugins: CommonBuilder[]) => ApplicationBuilder
   getPlugin: () => GeneratedApplication

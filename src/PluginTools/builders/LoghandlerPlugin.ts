@@ -31,7 +31,7 @@ export interface LoghandlerHooks extends CommonHooks {
   load(...injectable: InjectableParameter[]): Promise<LogHandler> | LogHandler
 }
 
-interface PomLogHandlerPlugin extends PomegranatePlugin {
+export interface PomLogHandlerPlugin extends PomegranatePlugin {
   configuration: LoghandlerConfiguration
   hooks: LoghandlerHooks
   directories?: PluginDirectories

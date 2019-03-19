@@ -24,7 +24,7 @@ export type CommandConfigTypes = 'command'
 export interface CommandConfiguration extends CommonConfiguration<CommandConfigTypes> {
 }
 
-interface PomCommandPlugin extends PomegranatePlugin {
+export interface PomCommandPlugin extends PomegranatePlugin {
   configuration: CommandConfiguration
   directories?: PluginDirectories
   variables?: PluginVariables,
