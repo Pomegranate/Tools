@@ -47,7 +47,7 @@ export interface GeneratedLoghandler extends GeneratedPlugin {
   state: PomLogHandlerPlugin
 }
 
-interface LoghandlerBuilder {
+export interface LoghandlerBuilder {
   variables: (variables: PluginVariables) => LoghandlerBuilder
   directories: (directories: PluginDirectories) => LoghandlerBuilder
   configuration: (configuration: LoghandlerConfiguration) => LoghandlerBuilder

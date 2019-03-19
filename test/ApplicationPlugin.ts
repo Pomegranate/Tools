@@ -35,7 +35,6 @@ describe('Building Injectable Plugins', () => {
   }
 
   test('Fluent interface', () => {
-    console.log(Fluent.getPlugin())
     expect(Fluent.getPlugin()).toEqual(expect.objectContaining(expectResult))
   })
 
