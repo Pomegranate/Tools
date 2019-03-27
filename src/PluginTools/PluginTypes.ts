@@ -105,7 +105,7 @@ export interface PluginVariables {
 }
 
 export interface PluginCommands {
-  (): any
+  (...injectable: InjectableParameter[]): any
 }
 
 
