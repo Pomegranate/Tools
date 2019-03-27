@@ -17,57 +17,56 @@ import {
 
 import {checkProp, createState} from "../builderMethods";
 
-export type InjectableB = 'InjectablePlugin'
+export type OverrideB = 'OverridePlugin'
 
-export type InjectableConfigTypes =
-  'anything' |
-  'factory' |
-  'instance' |
-  'merge'
+export type OverrideConfigTypes = 'override'
 
-export interface InjectableConfiguration extends CommonConfiguration<InjectableConfigTypes> {
-  injectableParam: string
+export interface OverrideConfiguration extends CommonConfiguration<OverrideConfigTypes> {
   depends?: string[]
   provides?: string[]
   optional?: string[]
   frameworkPlugin?: boolean
 }
 
-export interface PomInjectablePlugin<TInjectable = any> extends PomegranatePlugin {
-  configuration: InjectableConfiguration
+
+
+export interface PomOverridePlugin<TInjectable = any> extends PomegranatePlugin {
+  configuration: OverrideConfiguration
   hooks: InjectableHooks<TInjectable>
   directories?: PluginDirectories
   variables?: PluginVariables,
   commands?: PluginCommands
+  overrides: string
   installs?: any
   dashboard?: any
 }
 
 
-export interface GeneratedInjectable<TInjectable> extends GeneratedPlugin {
-  builderType: InjectableB
-  state: PomInjectablePlugin<TInjectable>
+export interface GeneratedOverride<TInjectable> extends GeneratedPlugin {
+  builderType: OverrideB
+  state: PomOverridePlugin<TInjectable>
 }
 
-export interface InjectableBuilder<TInjectable> {
-  variables: (variables: PluginVariables) => InjectableBuilder<TInjectable>
-  directories: (directories: PluginDirectories) => InjectableBuilder<TInjectable>
-  configuration: (configuration: InjectableConfiguration) => InjectableBuilder<TInjectable>
-  hooks: (hooks: InjectableHooks<TInjectable>) => InjectableBuilder<TInjectable>
-  commands: (commands: PluginCommands) => InjectableBuilder<TInjectable>
-  installs: (installs: any) => InjectableBuilder<TInjectable>
-  dashboard: (dashboard: any) => InjectableBuilder<TInjectable>
-  getPlugin: () => GeneratedInjectable<TInjectable>
+export interface OverrideBuilder<TInjectable> {
+  variables: (variables: PluginVariables) => OverrideBuilder<TInjectable>
+  directories: (directories: PluginDirectories) => OverrideBuilder<TInjectable>
+  configuration: (configuration: OverrideConfiguration) => OverrideBuilder<TInjectable>
+  hooks: (hooks: InjectableHooks<TInjectable>) => OverrideBuilder<TInjectable>
+  overrides: (override: string) => OverrideBuilder<TInjectable>
+  commands: (commands: PluginCommands) => OverrideBuilder<TInjectable>
+  installs: (installs: any) => OverrideBuilder<TInjectable>
+  dashboard: (dashboard: any) => OverrideBuilder<TInjectable>
+  getPlugin: () => GeneratedOverride<TInjectable>
 }
 
-export function isInjectableBuilder(builder: GeneratedPlugin): builder is GeneratedInjectable<any> {
-  return builder.builderType === 'InjectablePlugin'
+export function isOverrideBuilder(builder: GeneratedPlugin): builder is GeneratedOverride<any> {
+  return builder.builderType === 'OverridePlugin'
 }
 
-export const InjectablePlugin = function <TInjectable = any>(pluginObject?: PomInjectablePlugin<TInjectable>): InjectableBuilder<TInjectable> {
+export const OverridePlugin = function <TInjectable = any>(pluginObject?: PomOverridePlugin<TInjectable>): OverrideBuilder<TInjectable> {
   return (function createPlugin(plugin) {
 
-    let currentPlugin = createState('InjectablePlugin', pluginObject, plugin)
+    let currentPlugin = createState('OverridePlugin', pluginObject, plugin)
     return {
       variables: (variables) => {
         checkProp(pluginObject, currentPlugin, 'variables')
@@ -87,6 +86,11 @@ export const InjectablePlugin = function <TInjectable = any>(pluginObject?: PomI
       hooks: (hooks) => {
         checkProp(pluginObject, currentPlugin, 'hooks')
         currentPlugin.state.hooks = hooks
+        return createPlugin(currentPlugin)
+      },
+      overrides: (overrides) => {
+        checkProp(pluginObject, currentPlugin, 'overrides')
+        currentPlugin.state.overrides = overrides
         return createPlugin(currentPlugin)
       },
       commands: (commands) => {

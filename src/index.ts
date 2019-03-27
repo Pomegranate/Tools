@@ -6,6 +6,7 @@
  */
 
 export * from './PluginTools/builders/InjectablePlugin'
+export * from './PluginTools/builders/OverridePlugin'
 export * from './PluginTools/builders/ApplicationPlugin'
 export * from './PluginTools/builders/LoghandlerPlugin'
 export * from './PluginTools/builders/EffectPlugin'

@@ -5,22 +5,21 @@
  * @license MIT {@link http://opensource.org/licenses/MIT}
  */
 
-import {InjectablePlugin, isInjectableBuilder} from "../src"
-
-describe('Building Injectable Plugins', () => {
-  let Plugin = InjectablePlugin<any>()
+import {InjectablePlugin, isInjectableBuilder, OverridePlugin, isOverrideBuilder} from "../src"
+describe('Building Override Plugins', () => {
+  let Plugin = OverridePlugin<any>()
     .configuration({
       name: "Test",
       frameworkPlugin: false,
-      injectableParam: "Test",
       depends: [],
       optional: [],
       provides: [],
-      type: 'anything'
+      type: 'override'
     })
     .variables({})
     .directories([])
     .commands(function herp(){})
+    .overrides('Bob')
     .installs([])
     .hooks({
       load: () => {
@@ -32,20 +31,20 @@ describe('Building Injectable Plugins', () => {
       }
     })
 
-  let Obj = InjectablePlugin({
+  let Obj = OverridePlugin({
     configuration: {
       name: "Test",
       frameworkPlugin: false,
-      injectableParam: "Test",
       depends: [],
       optional: [],
       provides: [],
-      type: 'anything'
+      type: 'override'
     },
     variables: {},
     directories: [],
     commands: (Derp) => {},
     installs: [],
+    overrides: 'Bob',
     hooks: {
       load: () => {
         return {name: 'Test'};
@@ -58,20 +57,20 @@ describe('Building Injectable Plugins', () => {
   })
 
   let expectResult = {
-    builderType: 'InjectablePlugin', state: {
+    builderType: 'OverridePlugin', state: {
       configuration:
         {
           name: 'Test',
           frameworkPlugin: false,
-          injectableParam: 'Test',
           depends: [],
           optional: [],
           provides: [],
-          type: 'anything'
+          type: 'override'
         },
       variables: {},
       directories: [],
       commands: expect.any(Function),
+      overrides: 'Bob',
       installs: [],
       hooks:
         {
@@ -94,11 +93,10 @@ describe('Building Injectable Plugins', () => {
       Plugin.configuration({
         name: "Test",
         frameworkPlugin: false,
-        injectableParam: "Test",
         depends: [],
         optional: [],
         provides: [],
-        type: 'anything'
+        type: 'override'
       })
     }).toThrow()
   })
@@ -108,17 +106,16 @@ describe('Building Injectable Plugins', () => {
       Obj.configuration({
         name: "Test",
         frameworkPlugin: false,
-        injectableParam: "Test",
         depends: [],
         optional: [],
         provides: [],
-        type: 'anything'
+        type: 'override'
       })
     }).toThrow()
   })
 
-  test('isInjectable type checkProp', () => {
-    expect(isInjectableBuilder(Plugin.getPlugin())).toBeTruthy()
+  test('isOverride type checkProp', () => {
+    expect(isOverrideBuilder(Plugin.getPlugin())).toBeTruthy()
   })
 
 })

@@ -28,16 +28,6 @@ export interface PomegranatePlugin {
   overrides?: any
 }
 
-// export interface PomegranatePlugin {
-//   directories?: (string | PluginDirectory)[]
-//   variables?: PluginVariables
-//   configuration: PluginConfiguration
-//   hooks?: PluginHooks
-//   commands?: PluginCommands,
-//   applicationPlugins?: PomegranatePlugin[],
-//   installs?: any
-//   overrides?: any
-// }
 
 export interface GeneratedPlugin {
   builderType: string,
@@ -95,6 +85,9 @@ export interface CommonHooks {
   stop?(...injectable: InjectableParameter[]): Promise<any> | any
 }
 
+export interface InjectableHooks<T> extends CommonHooks {
+  load(...injectable: InjectableParameter[]): Promise<T> | T
+}
 
 export interface LogHandler {
   (logMessage: LogMessage, loggerData: LoggerData): void
@@ -107,8 +100,6 @@ export interface PluginVariables {
 export interface PluginCommands {
   (...injectable: InjectableParameter[]): any
 }
-
-
 
 
 
