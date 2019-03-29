@@ -38,7 +38,7 @@ export type CompositePluginTypes = EffectConfigTypes | InjectableConfigTypes | L
 
 export interface compositeValue {
   injectableParam: string,
-  value: any,
+  load: any,
   type?: CompositePluginTypes
 }
 
