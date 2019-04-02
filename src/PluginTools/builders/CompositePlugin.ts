@@ -12,7 +12,7 @@ import {
   PluginCommands,
   PluginVariables,
   GeneratedPlugin,
-  PomegranatePlugin, CommonHooks, InjectableParameter
+  PomegranatePlugin, CommonHooks, InjectableParameter, InjectableScope
 } from "../PluginTypes";
 
 import {EffectConfigTypes} from "./EffectPlugin"
@@ -38,6 +38,7 @@ export type CompositePluginTypes = EffectConfigTypes | InjectableConfigTypes | L
 
 export interface compositeValue {
   injectableParam: string,
+  injectableScope?: InjectableScope
   load: any,
   type?: CompositePluginTypes
 }

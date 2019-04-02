@@ -7,9 +7,12 @@
 
 export type InjectableParameter = any
 
+export type InjectableScope = 'global' | 'namespace' | 'application'
+
 export interface PomegranatePluginConfig {
   name: string,
   type: string,
+  injectionScope?: InjectableScope
   frameworkPlugin?: boolean
   injectableParam?: string
   depends?: string[]

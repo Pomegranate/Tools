@@ -23,11 +23,29 @@ import {WalkReducePath} from './walkReduce'
  * @module index
  */
 
-export interface PluginFileHandler {
+export type PluginFiles = (prop: string) => PluginFilesMethods
+export interface PluginFilesMethods {
+  baseName
+  joinWithBase
+  relativeOutputFile
+  relativeFileExists
+  workingDirectory
   fileBaseName
+  fileList
+  fileListDeep
+  fileListNested
+  walkWorkDir
+  walkReduce
+  ctors: {
+    fileList,
+    fileListDeep,
+    fileListNested,
+    walkWorkDir ,
+    walkReduce
+  }
 }
 
-export const PluginFileHandler = (wd) => {
+export const PluginFileHandler = (wd): PluginFilesMethods => {
   return {
     baseName: fileBaseName(wd),
     joinWithBase: joinWithBase(wd),

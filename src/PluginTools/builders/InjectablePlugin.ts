@@ -12,7 +12,7 @@ import {
   PluginCommands,
   PluginVariables,
   GeneratedPlugin,
-  PomegranatePlugin, CommonHooks, InjectableParameter, InjectableHooks
+  PomegranatePlugin, CommonHooks, InjectableParameter, InjectableHooks, InjectableScope
 } from "../PluginTypes";
 
 import {checkProp, createState} from "../builderMethods";
@@ -27,6 +27,7 @@ export type InjectableConfigTypes =
 
 export interface InjectableConfiguration extends CommonConfiguration<InjectableConfigTypes> {
   injectableParam: string
+  injectableScope?: InjectableScope
   depends?: string[]
   provides?: string[]
   optional?: string[]

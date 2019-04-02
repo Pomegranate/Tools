@@ -14,7 +14,7 @@ import {upperFirst, toLower} from 'lodash/fp'
  * @module fileBaseName
  */
 
-export const fileBaseName = (pathName, uppercase = false) => {
+export const fileBaseName = (pathName, uppercase = false): string => {
   let fbn = parse(pathName).name
   return uppercase ?  upperFirst(toLower(fbn)) : fbn
 }
