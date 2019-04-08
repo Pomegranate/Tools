@@ -6,7 +6,7 @@ module.exports = {
   testEnvironment: 'node',
   testMatch: null,
   testRegex: "(/test/.*|(\\.|/)(test|spec))\\.(js?|ts?)$",
-  collectCoverage: false,
+  collectCoverage: true,
   clearMocks: true,
   moduleFileExtensions: [
     "ts",
