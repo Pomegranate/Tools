@@ -37,6 +37,7 @@ describe('File Lists', () => {
   test('Returns only files with specified extension', async () => {
     let fileList = fileListFromPath(testDir('fileListExt'))
     let allfiles = await fileList()
+    console.log(allfiles)
     expect(allfiles.length).toEqual(5)
 
     let justJsFiles = await fileList({ext: '.js'})
