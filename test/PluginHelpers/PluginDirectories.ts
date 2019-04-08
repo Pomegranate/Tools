@@ -5,7 +5,7 @@
  * @license MIT {@link http://opensource.org/licenses/MIT}
  */
 
-import {directoryBasePath} from "../../PluginTools/PluginHelpers";
+import {directoryBasePath} from "../../src";
 
 
 describe('Plugin Directory base path', function () {
