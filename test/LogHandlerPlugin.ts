@@ -5,17 +5,16 @@
  * @license MIT {@link http://opensource.org/licenses/MIT}
  */
 
-import {isLoghandlerBuilder, LoghandlerPlugin} from "../src"
+import {CreatePlugin} from "../src"
 
 describe('Building Loghandler Plugins', () => {
-  let Plugin = LoghandlerPlugin()
+  let Plugin = CreatePlugin('loghandler')
     .configuration({
       name: "Test",
       frameworkPlugin: false,
       depends: [],
       optional: [],
-      provides: [],
-      type: 'loghandler'
+      provides: []
     })
     .variables({})
     .directories([])
@@ -35,7 +34,7 @@ describe('Building Loghandler Plugins', () => {
       }
     })
 
-  let Obj = LoghandlerPlugin({
+  let Obj = CreatePlugin({
     configuration: {
       name: "Test",
       frameworkPlugin: false,
@@ -62,7 +61,7 @@ describe('Building Loghandler Plugins', () => {
   })
 
   let expectResult = {
-    builderType: 'LoghandlerPlugin', state: {
+    builder: 'LoghandlerBuilder', state: {
       configuration:
         {
           name: 'Test',
@@ -92,34 +91,37 @@ describe('Building Loghandler Plugins', () => {
   test('Obj interface', () => {
     expect(Obj.getPlugin()).toEqual(expect.objectContaining(expectResult))
   })
+
+  test('Setting configuration.type throws on Fluent builder', () => {
+    expect(() => {
+      let P = CreatePlugin('application')
+        .configuration({
+          name: 'Test',
+          //@ts-ignore
+          type: 'application'
+        })
+    }).toThrow(new Error('Cannot set configuration.type when using the fluent plugin builder.'))
+  })
+
   test('Single call methods', () => {
     expect(() => {
-      Plugin.configuration({
-        name: "Test",
-        frameworkPlugin: false,
-        depends: [],
-        optional: [],
-        provides: [],
-        type: 'loghandler'
-      })
-    }).toThrow()
+      Plugin
+        .configuration({
+          name: 'Test',
+        })
+        .configuration({
+          name: 'Test',
+        })
+    }).toThrow(new Error('.configuration() has already been called on this builder.'))
   })
 
   test('No Fluent methods on Obj interface', () => {
     expect(() => {
       Obj.configuration({
-        name: "Test",
-        frameworkPlugin: false,
-        depends: [],
-        optional: [],
-        provides: [],
-        type: 'loghandler'
+        name: 'Test'
       })
-    }).toThrow()
+    }).toThrow(new Error('This builder was created with a complete plugin config, fluent methods cannot be called on it.'))
   })
 
-  test('isStructural type checkProp', () => {
-    expect(isLoghandlerBuilder(Plugin.getPlugin())).toBeTruthy()
-  })
 })
 ;

@@ -5,10 +5,10 @@
  * @license MIT {@link http://opensource.org/licenses/MIT}
  */
 
-import {InjectablePlugin, isInjectableBuilder} from "../src"
+import {CreatePlugin} from "../src"
 
 describe('Building Injectable Plugins', () => {
-  let Plugin = InjectablePlugin<any>()
+  let Plugin = CreatePlugin('anything')
     .configuration({
       name: "Test",
       frameworkPlugin: false,
@@ -17,7 +17,6 @@ describe('Building Injectable Plugins', () => {
       depends: [],
       optional: [],
       provides: [],
-      type: 'anything'
     })
     .variables({})
     .directories([])
@@ -33,7 +32,7 @@ describe('Building Injectable Plugins', () => {
       }
     })
 
-  let Obj = InjectablePlugin({
+  let Obj = CreatePlugin({
     configuration: {
       name: "Test",
       frameworkPlugin: false,
@@ -60,9 +59,9 @@ describe('Building Injectable Plugins', () => {
   })
 
   let expectResult = {
-    builderType: 'InjectablePlugin', state: {
-      configuration:
-        {
+    builder: 'InjectableBuilder',
+    state: expect.objectContaining({
+      configuration: expect.objectContaining({
           name: 'Test',
           frameworkPlugin: false,
           injectableParam: 'Test',
@@ -71,7 +70,7 @@ describe('Building Injectable Plugins', () => {
           optional: [],
           provides: [],
           type: 'anything'
-        },
+        }),
       variables: {},
       directories: [],
       commands: expect.any(Function),
@@ -82,7 +81,7 @@ describe('Building Injectable Plugins', () => {
           start: expect.any(Function),
           stop: expect.any(Function)
         }
-    }
+    })
   }
 
   test('Fluent interface', () => {
@@ -92,36 +91,39 @@ describe('Building Injectable Plugins', () => {
   test('Obj interface', () => {
     expect(Obj.getPlugin()).toEqual(expect.objectContaining(expectResult))
   })
+
+  test('Setting configuration.type throws on Fluent builder', () => {
+    expect(() => {
+      let P = CreatePlugin('application')
+        .configuration({
+          name: 'Test',
+          //@ts-ignore
+          type: 'application'
+        })
+    }).toThrow(new Error('Cannot set configuration.type when using the fluent plugin builder.'))
+  })
+
   test('Single call methods', () => {
     expect(() => {
-      Plugin.configuration({
-        name: "Test",
-        frameworkPlugin: false,
-        injectableParam: "Test",
-        depends: [],
-        optional: [],
-        provides: [],
-        type: 'anything'
-      })
-    }).toThrow()
+      Plugin
+        .configuration({
+          name: 'Test',
+          injectableParam: 'Test'
+        })
+        .configuration({
+          name: 'Test',
+          injectableParam: 'Test'
+        })
+    }).toThrow(new Error('.configuration() has already been called on this builder.'))
   })
 
   test('No Fluent methods on Obj interface', () => {
     expect(() => {
       Obj.configuration({
-        name: "Test",
-        frameworkPlugin: false,
-        injectableParam: "Test",
-        depends: [],
-        optional: [],
-        provides: [],
-        type: 'anything'
+        name: 'Test',
+        injectableParam: 'Test'
       })
-    }).toThrow()
-  })
-
-  test('isInjectable type checkProp', () => {
-    expect(isInjectableBuilder(Plugin.getPlugin())).toBeTruthy()
+    }).toThrow(new Error('This builder was created with a complete plugin config, fluent methods cannot be called on it.'))
   })
 
 })

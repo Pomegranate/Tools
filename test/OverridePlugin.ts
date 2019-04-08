@@ -5,16 +5,15 @@
  * @license MIT {@link http://opensource.org/licenses/MIT}
  */
 
-import {InjectablePlugin, isInjectableBuilder, OverridePlugin, isOverrideBuilder} from "../src"
+import { CreatePlugin} from "../src"
 describe('Building Override Plugins', () => {
-  let Plugin = OverridePlugin<any>()
+  let Plugin = CreatePlugin('override')
     .configuration({
       name: "Test",
       frameworkPlugin: false,
       depends: [],
       optional: [],
-      provides: [],
-      type: 'override'
+      provides: []
     })
     .variables({})
     .directories([])
@@ -31,7 +30,7 @@ describe('Building Override Plugins', () => {
       }
     })
 
-  let Obj = OverridePlugin({
+  let Obj = CreatePlugin({
     configuration: {
       name: "Test",
       frameworkPlugin: false,
@@ -57,7 +56,7 @@ describe('Building Override Plugins', () => {
   })
 
   let expectResult = {
-    builderType: 'OverridePlugin', state: {
+    builder: 'OverrideBuilder', state: {
       configuration:
         {
           name: 'Test',
@@ -96,8 +95,14 @@ describe('Building Override Plugins', () => {
         depends: [],
         optional: [],
         provides: [],
-        type: 'override'
       })
+        .configuration({
+          name: "Test",
+          frameworkPlugin: false,
+          depends: [],
+          optional: [],
+          provides: [],
+        })
     }).toThrow()
   })
 
@@ -108,14 +113,9 @@ describe('Building Override Plugins', () => {
         frameworkPlugin: false,
         depends: [],
         optional: [],
-        provides: [],
-        type: 'override'
+        provides: []
       })
     }).toThrow()
-  })
-
-  test('isOverride type checkProp', () => {
-    expect(isOverrideBuilder(Plugin.getPlugin())).toBeTruthy()
   })
 
 })

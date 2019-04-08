@@ -12,9 +12,9 @@ export type InjectableScope = 'global' | 'namespace' | 'application'
 export interface PomegranatePluginConfig {
   name: string,
   type: string,
-  injectionScope?: InjectableScope
-  frameworkPlugin?: boolean
   injectableParam?: string
+  injectableScope?: InjectableScope
+  frameworkPlugin?: boolean
   depends?: string[]
   provides?: string[]
   optional?: string[]
@@ -33,7 +33,7 @@ export interface PomegranatePlugin {
 
 
 export interface GeneratedPlugin {
-  builderType: string,
+  builder: string,
   state: any
 }
 

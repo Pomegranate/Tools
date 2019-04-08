@@ -5,17 +5,16 @@
  * @license MIT {@link http://opensource.org/licenses/MIT}
  */
 
-import {CompositePlugin, isCompositeBuilder} from "../src"
+import {CreatePlugin} from "../src"
 
 describe('Building Composite Plugins', () => {
-  let Plugin = CompositePlugin()
+  let Plugin = CreatePlugin('composite')
     .configuration({
       name: "Test",
       frameworkPlugin: false,
       depends: [],
       optional: [],
       provides: [],
-      type: 'composite'
     })
     .variables({})
     .directories([])
@@ -33,7 +32,7 @@ describe('Building Composite Plugins', () => {
       }
     })
 
-  let Obj = CompositePlugin({
+  let Obj = CreatePlugin({
     configuration: {
       name: "Test",
       frameworkPlugin: false,
@@ -58,7 +57,7 @@ describe('Building Composite Plugins', () => {
   })
 
   let expectResult = {
-    builderType: 'CompositePlugin', state: {
+    builder: 'CompositeBuilder', state: {
       configuration:
         {
           name: 'Test',
@@ -88,34 +87,35 @@ describe('Building Composite Plugins', () => {
   test('Obj interface', () => {
     expect(Obj.getPlugin()).toEqual(expect.objectContaining(expectResult))
   })
+  test('Setting configuration.type throws on Fluent builder', () => {
+    expect(() => {
+      let P = CreatePlugin('application')
+        .configuration({
+          name: 'Test',
+          //@ts-ignore
+          type: 'application'
+        })
+    }).toThrow(new Error('Cannot set configuration.type when using the fluent plugin builder.'))
+  })
+
   test('Single call methods', () => {
     expect(() => {
-      Plugin.configuration({
-        name: "Test",
-        frameworkPlugin: false,
-        depends: [],
-        optional: [],
-        provides: [],
-        type: 'composite'
-      })
-    }).toThrow()
+      Plugin
+        .configuration({
+          name: 'Test',
+        })
+        .configuration({
+          name: 'Test',
+        })
+    }).toThrow(new Error('.configuration() has already been called on this builder.'))
   })
 
   test('No Fluent methods on Obj interface', () => {
     expect(() => {
       Obj.configuration({
-        name: "Test",
-        frameworkPlugin: false,
-        depends: [],
-        optional: [],
-        provides: [],
-        type: 'composite'
+        name: 'Test'
       })
-    }).toThrow()
-  })
-
-  test('isComposite type checkProp', () => {
-    expect(isCompositeBuilder(Plugin.getPlugin())).toBeTruthy()
+    }).toThrow(new Error('This builder was created with a complete plugin config, fluent methods cannot be called on it.'))
   })
 
 })

@@ -22,7 +22,7 @@ export function checkProp(pluginObject, plugin, prop) {
 export function createState(builderType: string, pluginObject, plugin) {
   if (plugin === undefined) {
     return {
-      builderType: builderType,
+      builder: builderType,
       state: pluginObject ? pluginObject : {}
     }
   }

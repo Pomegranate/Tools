@@ -4,14 +4,14 @@
  * @project PluginTools
  * @license MIT {@link http://opensource.org/licenses/MIT}
  */
-
-export * from './PluginTools/builders/InjectablePlugin'
-export * from './PluginTools/builders/OverridePlugin'
-export * from './PluginTools/builders/ApplicationPlugin'
-export * from './PluginTools/builders/LoghandlerPlugin'
-export * from './PluginTools/builders/EffectPlugin'
-export * from './PluginTools/builders/CommandPlugin'
-export * from './PluginTools/builders/CompositePlugin'
+export * from './PluginTools/CreatePlugin'
+export * from './PluginTools/builders/InjectableBuilder'
+export * from './PluginTools/builders/OverrideBuilder'
+export * from './PluginTools/builders/ApplicationBuilder'
+export * from './PluginTools/builders/LoghandlerBuilder'
+export * from './PluginTools/builders/ActionBuilder'
+export * from './PluginTools/builders/CommandBuilder'
+export * from './PluginTools/builders/CompositeBuilder'
 export * from './PluginTools/PluginTypes'
 export * from './PluginTools/FileHelpers'
 export * from './PluginTools/PluginHelpers'
