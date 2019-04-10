@@ -10,3 +10,9 @@ import {join} from 'path'
 export const joinWithBase = curry((baseDirectory, path) => {
     return join(baseDirectory, path)
 })
+
+export const manualJoinWithBase = (baseDirectory: string) => {
+    return (...paths: string[]) => {
+        return join(baseDirectory, ...paths)
+    }
+}

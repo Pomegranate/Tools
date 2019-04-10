@@ -8,7 +8,7 @@
 
 'use strict';
 
-import {joinWithBase} from "./joinWithBase";
+import {joinWithBase, manualJoinWithBase} from "./joinWithBase";
 import {relativeOutputFile} from "./relativeOutputFile";
 import {relativeFileExists} from "./relativeFileExists";
 import {fileBaseName} from "./fileBaseName";
@@ -52,14 +52,14 @@ export interface PluginFilesMethods {
 export const PluginFileHandler = (wd: string, pd?: string): PluginFilesMethods => {
   return {
     baseName: fileBaseName(wd),
-    joinWithBase: joinWithBase(wd),
+    joinWithBase: manualJoinWithBase(wd),
     relativeOutputFile: relativeOutputFile(wd),
     relativeFileExists: relativeFileExists(wd),
     workingDirectory: wd,
     projectDirectory: pd,
     outputProjectFile: pd  && relativeOutputFile(pd),
     projectFileExists: pd && relativeFileExists(pd),
-    joinWithProject: pd && joinWithBase(pd),
+    joinWithProject: pd && manualJoinWithBase(pd),
     fileBaseName: fileBaseName,
     fileList: fileListFromPath(wd),
     fileListDeep: FileListDeepFromPath(wd),
