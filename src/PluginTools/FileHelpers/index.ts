@@ -33,6 +33,7 @@ export interface PluginFilesMethods {
   projectDirectory
   outputProjectFile
   projectFileExists
+  joinWithProject
   fileBaseName
   fileList
   fileListDeep
@@ -58,6 +59,7 @@ export const PluginFileHandler = (wd: string, pd?: string): PluginFilesMethods =
     projectDirectory: pd,
     outputProjectFile: pd  && relativeOutputFile(pd),
     projectFileExists: pd && relativeFileExists(pd),
+    joinWithProject: pd && joinWithBase(pd),
     fileBaseName: fileBaseName,
     fileList: fileListFromPath(wd),
     fileListDeep: FileListDeepFromPath(wd),
