@@ -10,3 +10,9 @@ import {join} from 'path'
 export const relativeFileExists = curry((basepath, filepath)=>{
   return pathExists(join(basepath, filepath))
 })
+
+export const manualRelativeFileExists = (basepath: string) => {
+  return (...paths: string[]) => {
+    return pathExists(join(basepath, ...paths))
+  }
+}

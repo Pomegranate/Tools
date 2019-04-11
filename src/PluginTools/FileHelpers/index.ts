@@ -7,10 +7,10 @@
 
 
 'use strict';
-
+import {join} from 'path'
 import {joinWithBase, manualJoinWithBase} from "./joinWithBase";
 import {relativeOutputFile} from "./relativeOutputFile";
-import {relativeFileExists} from "./relativeFileExists";
+import {relativeFileExists, manualRelativeFileExists} from "./relativeFileExists";
 import {fileBaseName} from "./fileBaseName";
 import {fileListFromPath} from './fileList'
 import {FileListDeepFromPath} from "./fileListDeep";
@@ -26,6 +26,7 @@ import {WalkReducePath} from './walkReduce'
 export type PluginFiles = (prop: string) => PluginFilesMethods
 export interface PluginFilesMethods {
   baseName
+  join
   joinWithBase
   relativeOutputFile
   relativeFileExists
@@ -52,13 +53,14 @@ export interface PluginFilesMethods {
 export const PluginFileHandler = (wd: string, pd?: string): PluginFilesMethods => {
   return {
     baseName: fileBaseName(wd),
+    join: join,
     joinWithBase: manualJoinWithBase(wd),
     relativeOutputFile: relativeOutputFile(wd),
-    relativeFileExists: relativeFileExists(wd),
+    relativeFileExists: manualRelativeFileExists(wd),
     workingDirectory: wd,
     projectDirectory: pd,
     outputProjectFile: pd  && relativeOutputFile(pd),
-    projectFileExists: pd && relativeFileExists(pd),
+    projectFileExists: pd && manualRelativeFileExists(pd),
     joinWithProject: pd && manualJoinWithBase(pd),
     fileBaseName: fileBaseName,
     fileList: fileListFromPath(wd),
