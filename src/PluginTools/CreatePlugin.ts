@@ -31,6 +31,7 @@ export function isBuildableType(builderName: string | PomegranatePlugin): builde
 }
 
 export function isPomegranateType(pomPlugin: PomegranatePlugin | any): pomPlugin is PomegranatePlugin {
+  // @ts-ignore
   return isObject(pomPlugin) && isObject(pomPlugin.configuration)
 }
 
