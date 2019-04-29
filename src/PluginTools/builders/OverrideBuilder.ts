@@ -34,6 +34,7 @@ export interface OverrideConfiguration extends CommonConfiguration<OverridePlugi
 export interface FluentOverrideConfig {
   name: string,
   frameworkPlugin?: any,
+  applicationMember?: string[]
   depends?: string[]
   provides?: string[]
   optional?: string[]

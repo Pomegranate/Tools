@@ -42,6 +42,7 @@ export interface CommonConfiguration<TPluginType> {
   name: string
   type: TPluginType
   frameworkPlugin?: boolean
+  applicationMember?: string[]
 }
 
 export interface CommonBuilder {

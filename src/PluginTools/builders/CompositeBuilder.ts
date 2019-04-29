@@ -40,6 +40,7 @@ export interface FluentCompositeConfig {
   name: string,
   frameworkPlugin?: any,
   injectableScope?: string
+  applicationMember?: string[]
   depends?: string[]
   provides?: string[]
   optional?: string[]

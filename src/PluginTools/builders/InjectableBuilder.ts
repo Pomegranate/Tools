@@ -41,7 +41,8 @@ export interface FluentInjectableConfig {
   name: string,
   frameworkPlugin?: any,
   injectableParam: string,
-  injectableScope?: string
+  injectableScope?: string,
+  applicationMember?: string[]
   depends?: string[]
   provides?: string[]
   optional?: string[]

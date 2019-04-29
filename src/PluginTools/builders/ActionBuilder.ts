@@ -57,6 +57,7 @@ type FluentActionB = 'ActionBuilder'
 export interface FluentActionConfig {
   name: string,
   frameworkPlugin?: any,
+  applicationMember?: string[]
   depends?: string[]
   provides?: string[]
   optional?: string[]
