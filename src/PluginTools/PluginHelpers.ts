@@ -8,7 +8,7 @@
 import {compose, first, get, initial, join, last, memoize, startsWith, tail, curry} from 'lodash/fp'
 import {append} from "./ArrayMethods";
 
-export const getName = get('configuration.name')
+export const getName = get('state.configuration.name')
 export const getDirectories = get('directories')
 export const getParents = get('parents')
 export const getNamespace = get('namespace')
@@ -16,7 +16,7 @@ export const hasParents = (parents) => {
   return !!(parents.length)
 }
 
-export const getFqn = get('configuration.name')
+export const getFqn = get('computed.fqn')
 
 export const fqDeclaredName = memoize((fqn: string[]): string => {
   return last(fqn)

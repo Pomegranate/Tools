@@ -18,6 +18,7 @@ import {checkProp, createState} from "../builderMethods";
 import {Builder} from "./Builder";
 import {merge} from "lodash/fp";
 import {InjectablePluginTypes, PomInjectablePlugin} from "./InjectableBuilder";
+import {LoghandlerValidator} from "../Validation";
 
 export type LoghandlerB = 'LoghandlerBuilder'
 
@@ -55,10 +56,11 @@ export interface PomLogHandlerPlugin extends PomegranatePlugin {
 
 export class LoghandlerBuilder extends Builder {
   builder: LoghandlerB
+  validator: any
   constructor(state: LoghandlerPluginTypes | PomLogHandlerPlugin) {
     super(state)
     this.builder = 'LoghandlerBuilder'
-
+    this.validator = LoghandlerValidator
   }
 
   configuration(configuration: FluentLoghandlerConfig) {

@@ -9,6 +9,24 @@ import {CreatePlugin} from "../src"
 
 describe('Building Effect Plugins', () => {
 
+  let minimalPlugin = CreatePlugin('action')
+    .configuration({
+      name: "Test",
+      frameworkPlugin: false,
+      depends: [],
+      optional: [],
+      provides: []
+    })
+    .hooks({
+      load: () => {
+        return {name: 'Test'};
+      },
+      start: () => {
+      },
+      stop: () => {
+      }
+    })
+
   let Plugin = CreatePlugin('action')
     .configuration({
       name: "Test",
@@ -78,16 +96,47 @@ describe('Building Effect Plugins', () => {
           load: expect.any(Function),
           start: expect.any(Function),
           stop: expect.any(Function)
-        }
+        },
+      dashboard: {}
     }
   }
 
-  test('Fluent interface', () => {
-    expect(Plugin.getPlugin()).toEqual(expect.objectContaining(expectResult))
+  let minimalResult = {
+    builder: 'ActionBuilder', state: {
+      configuration:
+        {
+          name: 'Test',
+          frameworkPlugin: false,
+          depends: [],
+          optional: [],
+          provides: [],
+          type: 'action'
+        },
+      variables: {},
+      directories: [],
+      commands: null,
+      installs: [],
+      hooks:
+        {
+          load: expect.any(Function),
+          start: expect.any(Function),
+          stop: expect.any(Function)
+        },
+      dashboard: {}
+    }
+  }
+
+  test('Fluent interface', async () => {
+    expect(await Plugin.getPlugin()).toEqual(expect.objectContaining(expectResult))
   })
 
-  test('Obj interface', () => {
-    expect(Obj.getPlugin()).toEqual(expect.objectContaining(expectResult))
+  test('Minimal Plugin gets correct defaults', async () => {
+    let p = await minimalPlugin.getPlugin()
+    expect(p).toEqual(expect.objectContaining(minimalResult))
+  })
+
+  test('Obj interface',async  () => {
+    expect(await Obj.getPlugin()).toEqual(expect.objectContaining(expectResult))
   })
 
   test('Setting configuration.type throws on Fluent builder', () => {

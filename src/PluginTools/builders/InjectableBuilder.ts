@@ -20,6 +20,8 @@ import {
 import {Builder} from "./Builder";
 import {merge} from "lodash/fp";
 
+import {InjectableValidator} from "../Validation";
+
 export type InjectableB = 'InjectableBuilder'
 
 export type InjectablePluginTypes =
@@ -60,10 +62,11 @@ export interface PomInjectablePlugin<TInjectable = any> extends PomegranatePlugi
 
 export class InjectableBuilder extends Builder {
   builder: InjectableB
+  validator: any
   constructor(state: InjectablePluginTypes | PomInjectablePlugin) {
     super(state)
     this.builder = 'InjectableBuilder'
-
+    this.validator = InjectableValidator
   }
 
   configuration(configuration: FluentInjectableConfig) {

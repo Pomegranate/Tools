@@ -7,6 +7,7 @@
 import {merge} from 'lodash/fp'
 import {Builder} from './Builder'
 import {CommonBuilder, CommonConfiguration, PomegranatePlugin} from "../PluginTypes";
+import {ApplicationValidator} from "../Validation";
 
 export type ApplicationB = 'ApplicationBuilder'
 
@@ -26,11 +27,11 @@ export interface PomApplicationPlugin extends PomegranatePlugin {
 
 export class ApplicationBuilder extends Builder {
   builder: ApplicationB
-
+  validator: any
   constructor(state: ApplicationPluginTypes | PomApplicationPlugin) {
     super(state)
     this.builder = 'ApplicationBuilder'
-
+    this.validator = ApplicationValidator
   }
 
   configuration(configuration: FluentApplicationConfig) {

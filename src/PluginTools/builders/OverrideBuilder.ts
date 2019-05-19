@@ -19,6 +19,7 @@ import {checkProp, createState} from "../builderMethods";
 import {Builder} from "./Builder";
 import {merge} from "lodash/fp";
 import {InjectablePluginTypes, PomInjectablePlugin} from "./InjectableBuilder";
+import {OverrideValidator} from "../Validation";
 
 export type OverrideB = 'OverrideBuilder'
 
@@ -55,10 +56,11 @@ export interface PomOverridePlugin<TInjectable = any> extends PomegranatePlugin 
 
 export class OverrideBuilder extends Builder {
   builder: OverrideB
+  validator: any
   constructor(state: OverridePluginTypes | PomOverridePlugin) {
     super(state)
     this.builder = 'OverrideBuilder'
-
+    this.validator = OverrideValidator
   }
 
   configuration(configuration: FluentOverrideConfig) {

@@ -19,6 +19,7 @@ import {checkProp, createState} from "../builderMethods";
 import {Builder} from "./Builder";
 import {merge} from "lodash/fp";
 import {FluentInjectableConfig, InjectablePluginTypes, PomInjectablePlugin} from "./InjectableBuilder";
+import {CommandValidator} from "../Validation";
 
 export type CommandB = 'CommandBuilder'
 
@@ -45,10 +46,11 @@ export interface PomCommandPlugin extends PomegranatePlugin {
 
 export class CommandBuilder extends Builder {
   builder: CommandB
+  validator: any
   constructor(state: CommandPluginTypes | PomCommandPlugin) {
     super(state)
     this.builder = 'CommandBuilder'
-
+    this.validator = CommandValidator
   }
 
   configuration(configuration: FluentCommandConfig) {

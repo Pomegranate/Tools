@@ -24,6 +24,8 @@ import {checkProp, createState} from "../builderMethods";
 import {Builder} from "./Builder";
 import {merge} from "lodash/fp";
 
+import {CompositeValidator} from "../Validation";
+
 export type CompositeB = 'CompositeBuilder'
 
 export type CompositePluginTypes = 'composite'
@@ -71,10 +73,11 @@ export interface PomCompositePlugin extends PomegranatePlugin {
 
 export class CompositeBuilder extends Builder {
   builder: CompositeB
+  validator: any
   constructor(state: CompositePluginTypes | PomCompositePlugin) {
     super(state)
     this.builder = 'CompositeBuilder'
-
+    this.validator = CompositeValidator
   }
 
   configuration(configuration: FluentCompositeConfig) {

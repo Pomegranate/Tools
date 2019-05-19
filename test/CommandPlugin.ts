@@ -43,16 +43,17 @@ describe('Building Command Plugins', () => {
       variables: {},
       directories: [],
       commands: expect.any(Function),
-      installs: []
+      installs: [],
+      dashboard: {}
     }
   }
 
-  test('Fluent interface', () => {
-    expect(Plugin.getPlugin()).toEqual(expect.objectContaining(expectResult))
+  test('Fluent interface', async () => {
+    expect(await Plugin.getPlugin()).toEqual(expect.objectContaining(expectResult))
   })
 
-  test('Obj interface', () => {
-    expect(Obj.getPlugin()).toEqual(expect.objectContaining(expectResult))
+  test('Obj interface', async () => {
+    expect(await Obj.getPlugin()).toEqual(expect.objectContaining(expectResult))
   })
   test('Setting configuration.type throws on Fluent builder', () => {
     expect(() => {

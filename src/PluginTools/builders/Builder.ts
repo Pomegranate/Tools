@@ -36,10 +36,14 @@ export class Builder {
   protected builder: any
   protected called: { [key: string]: boolean }
   protected state: any
+  protected validator: any
   constructor(state: any){
     this.fluent = !isObject(state)
     this.called = {}
     this.state = createPluginState(state)
+    this.validator = () => {
+      throw new Error('This is not a valid plugin.')
+    }
   }
 
   protected checkProp(prop: string) {
@@ -67,10 +71,11 @@ export class Builder {
     return this
   }
 
-  getPlugin() {
+  async getPlugin() {
+    let validState = await this.validator(this.state)
     return {
       builder: this.builder,
-      state: this.state
+      state: validState
     }
   }
 }

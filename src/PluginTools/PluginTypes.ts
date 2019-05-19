@@ -9,6 +9,19 @@ export type InjectableParameter = any
 
 export type InjectableScope = 'global' | 'namespace' | 'application'
 
+export const pluginTypes = [
+  'action',
+  'anything',
+  'composite',
+  'factory',
+  'instance',
+  'merge',
+  'application',
+  'override',
+  'loghandler',
+  'command'
+]
+
 export interface PomegranatePluginConfig {
   name: string,
   type: string,

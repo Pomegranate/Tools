@@ -8,6 +8,20 @@
 import {CreatePlugin} from "../src"
 
 describe('Building Composite Plugins', () => {
+  let minimalPlugin = CreatePlugin('composite')
+    .configuration({
+      name: "Test",
+      frameworkPlugin: false,
+      depends: [],
+      optional: [],
+      provides: [],
+    })
+    .hooks({
+      load: () => {
+        return []
+      }
+    })
+
   let Plugin = CreatePlugin('composite')
     .configuration({
       name: "Test",
@@ -62,6 +76,7 @@ describe('Building Composite Plugins', () => {
         {
           name: 'Test',
           frameworkPlugin: false,
+          applicationMember: null,
           depends: [],
           optional: [],
           provides: [],
@@ -71,6 +86,7 @@ describe('Building Composite Plugins', () => {
       directories: [],
       commands: expect.any(Function),
       installs: [],
+      dashboard: {},
       hooks:
         {
           load: expect.any(Function),
@@ -80,12 +96,42 @@ describe('Building Composite Plugins', () => {
     }
   }
 
-  test('Fluent interface', () => {
-    expect(Plugin.getPlugin()).toEqual(expect.objectContaining(expectResult))
+  let expectMinimal = {
+    builder: 'CompositeBuilder',
+    state: expect.objectContaining({
+      configuration: expect.objectContaining({
+        name: 'Test',
+        frameworkPlugin: false,
+        applicationMember: null,
+        depends: [],
+        optional: [],
+        provides: [],
+        type: 'composite'
+      }),
+      variables: {},
+      directories: [],
+      commands: null,
+      installs: [],
+      hooks:
+        {
+          load: expect.any(Function),
+          start: expect.any(Function),
+          stop: expect.any(Function)
+        }
+    })
+  }
+
+
+  test('Fluent interface', async () => {
+    expect(await Plugin.getPlugin()).toEqual(expect.objectContaining(expectResult))
   })
 
-  test('Obj interface', () => {
-    expect(Obj.getPlugin()).toEqual(expect.objectContaining(expectResult))
+  test('Minimal Plugin gets correct defaults', async () => {
+    expect(await minimalPlugin.getPlugin()).toEqual(expect.objectContaining(expectMinimal))
+  })
+
+  test('Obj interface', async () => {
+    expect(await Obj.getPlugin()).toEqual(expect.objectContaining(expectResult))
   })
   test('Setting configuration.type throws on Fluent builder', () => {
     expect(() => {

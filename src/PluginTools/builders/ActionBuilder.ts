@@ -14,6 +14,7 @@ import {
   PomegranatePlugin, CommonHooks
 } from "../PluginTypes";
 
+import {ActionValidator} from "../Validation";
 import {Builder} from "./Builder";
 
 export type ActionB = 'ActionBuilder'
@@ -65,10 +66,11 @@ export interface FluentActionConfig {
 
 export class ActionBuilder extends Builder {
   builder: ActionB
+  validator: any
   constructor(state: ActionPluginTypes | PomActionPlugin) {
     super(state)
     this.builder = 'ActionBuilder'
-
+    this.validator = ActionValidator
   }
 
   configuration(configuration: FluentActionConfig) {

@@ -34,12 +34,12 @@ describe('Building Application Plugins', () => {
     }
   }
 
-  test('Plugin interface', () => {
-    expect(Plugin.getPlugin()).toEqual(expect.objectContaining(expectResult))
+  test('Plugin interface', async () => {
+    expect(await Plugin.getPlugin()).toEqual(expect.objectContaining(expectResult))
   })
 
-  test('Obj interface', () => {
-    expect(Obj.getPlugin()).toEqual(expect.objectContaining(expectResult))
+  test('Obj interface',async  () => {
+    expect(await Obj.getPlugin()).toEqual(expect.objectContaining(expectResult))
   })
 
   test('Setting configuration.type throws on Plugin builder', () => {
