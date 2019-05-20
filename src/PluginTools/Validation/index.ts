@@ -12,9 +12,9 @@ import {ConformCommand} from "./PluginConformers/ConformCommand";
 import {ConformComposite} from "./PluginConformers/ConformComposite";
 import {ConformLoghandler} from "./PluginConformers/ConformLoghandler";
 import {ConformOverride} from "./PluginConformers/ConformOverride";
-import {conformDeep} from "lodash-fun";
+import {conformDeep, transformKeys} from "lodash-fun";
 
-export const InjectableValidator = conformDeep(ConformInjectable)
+export const InjectableValidator = transformKeys(ConformInjectable)
 export const ActionValidator = conformDeep(ConformAction)
 export const ApplicationValidator = conformDeep(ConformApplication)
 export const CommandValidator = conformDeep(ConformCommand)

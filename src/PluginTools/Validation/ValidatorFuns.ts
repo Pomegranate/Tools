@@ -100,7 +100,7 @@ export const configType = (type, srcPlugin) => {
 
 export const configInjectableParam = (injectableParam, srcPlugin) => {
   let {loadSource, moduleName, pluginName, pluginType} = getConfigMeta(srcPlugin)
-  let errMsg = `${loadSource} Plugin ${pluginName} config.injectableParam ${injectableParam} is not a valid ES5 parameter.`
+  let errMsg = `${loadSource} Plugin ${pluginName} configuration.injectableParam ${injectableParam} is not a valid ES5 parameter.`
   if (isNullOrUndefined(injectableParam)) {
     return new Error(`${loadSource} Plugin "${pluginName}" of type "${pluginType}" requires "config.injectableParam" to be set.`)
   }
@@ -115,7 +115,7 @@ export const configInjectableScope = (injectableScope) => {
     'global' :
     hasValidInjectableScope(injectableScope) ?
       injectableScope :
-      new Error('config.injectableScope must be either "global", "namespace", or "application"')
+      new Error('configuration.injectableScope must be either "global", "namespace", or "application"')
 
   return scope
 }

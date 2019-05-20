@@ -10,7 +10,7 @@ import {directoryBasePath} from "../../src";
 
 describe('Plugin Directory base path', function () {
   test('Namespaced Multiple Plugin', () => {
-    let plugin = {
+    let plugin = {state:{
       parents: ['A', 'B'],
       namespace: '@pom-test',
       configuration:
@@ -22,14 +22,14 @@ describe('Plugin Directory base path', function () {
             'CoolPlugin'
           ]
         }
-    }
+    }}
     let path = directoryBasePath(plugin)
 
     expect(path).toEqual('@pom-test/A/B/CoolPlugin')
   })
 
   test('Namespaced Plugin', () => {
-    let plugin = {
+    let plugin = {state:{
       parents: [],
       namespace: '@pom-test',
       configuration:
@@ -39,14 +39,14 @@ describe('Plugin Directory base path', function () {
             'CoolPlugin'
           ]
         }
-    }
+    }}
     let path = directoryBasePath(plugin)
 
     expect(path).toEqual('@pom-test/CoolPlugin')
   })
 
   test('Local Multiple Plugin', () => {
-    let plugin = {
+    let plugin = {state:{
       parents: ['A', 'B'],
       namespace: null,
       configuration:
@@ -57,13 +57,13 @@ describe('Plugin Directory base path', function () {
             'CoolPlugin'
           ]
         }
-    }
+    }}
     let path = directoryBasePath(plugin)
     expect(path).toEqual('A/B/CoolPlugin')
   })
 
   test('Local Plugin', () => {
-    let plugin = {
+    let plugin = {state:{
       parents: [],
       namespace: null,
       configuration:
@@ -72,7 +72,7 @@ describe('Plugin Directory base path', function () {
             'CoolPlugin'
           ]
         }
-    }
+    }}
     let path = directoryBasePath(plugin)
     expect(path).toEqual('CoolPlugin')
   })

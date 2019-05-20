@@ -6,6 +6,7 @@
  */
 
 import {isObject, isString, has, merge} from 'lodash/fp'
+import {conformTransformed, ConformError, isConformError} from "lodash-fun";
 
 export interface CompleteBuilder {}
 export interface FluentBuilder {}
@@ -31,12 +32,20 @@ function createPluginState(state: any) {
   }
 }
 
+export interface BuiltPlugin {
+  builder: string
+  state: any,
+  providedValues: any,
+  errorsFrom: {[key: string]: Error}
+}
+
 export class Builder {
   protected fluent: boolean
   protected builder: any
   protected called: { [key: string]: boolean }
   protected state: any
   protected validator: any
+
   constructor(state: any){
     this.fluent = !isObject(state)
     this.called = {}
@@ -71,11 +80,25 @@ export class Builder {
     return this
   }
 
-  async getPlugin() {
+  async getPlugin(): Promise<BuiltPlugin> {
     let validState = await this.validator(this.state)
+    let errorsFrom = null
+    try {
+      conformTransformed(validState)
+    }
+    catch(err){
+      if(isConformError(err)){
+        errorsFrom = err.validationErrors
+      } else {
+        throw new Error('This plugin encountered an unexpected error.')
+      }
+    }
+
     return {
       builder: this.builder,
-      state: validState
+      state: validState,
+      providedValues: this.state,
+      errorsFrom: errorsFrom
     }
   }
 }

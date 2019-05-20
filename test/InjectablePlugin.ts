@@ -74,6 +74,23 @@ describe('Building Injectable Plugins', () => {
     }
   })
 
+  let InvalidPlugin = CreatePlugin('anything')
+    .configuration({
+      name: "Test",
+      frameworkPlugin: false,
+      injectableParam: "Test",
+      //@ts-ignore
+      injectableScope: 10,
+      depends: [],
+      optional: [],
+      provides: [],
+    })
+    .hooks({
+      load: () => {
+
+      }
+    })
+
   let expectResult = {
     builder: 'InjectableBuilder',
     state: expect.objectContaining({
@@ -173,4 +190,7 @@ describe('Building Injectable Plugins', () => {
     }).toThrow(new Error('This builder was created with a complete plugin config, fluent methods cannot be called on it.'))
   })
 
+  test('Non valid plugins', async () => {
+    let p = await InvalidPlugin.getPlugin()
+  })
 })
