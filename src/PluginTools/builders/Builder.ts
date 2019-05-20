@@ -7,6 +7,7 @@
 
 import {isObject, isString, has, merge} from 'lodash/fp'
 import {conformTransformed, ConformError, isConformError} from "lodash-fun";
+import {GeneratedPlugin} from "../PluginTypes";
 
 export interface CompleteBuilder {}
 export interface FluentBuilder {}
@@ -85,7 +86,7 @@ export class Builder {
     return this
   }
 
-  async getPlugin(): Promise<CreatedPlugin> {
+  async getPlugin(): Promise<GeneratedPlugin> {
     let validState = await this.validator(this.state)
     let errorsFrom = null
     try {

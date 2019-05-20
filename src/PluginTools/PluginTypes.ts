@@ -44,10 +44,15 @@ export interface PomegranatePlugin {
   overrides?: any
 }
 
+export interface CreationMetadata {
+  providedValues: any,
+  errorsFrom: {[key: string]: Error}
+}
 
 export interface GeneratedPlugin {
-  builder: string,
-  state: any
+  builder: string
+  state: any,
+  creationMetadata: CreationMetadata
 }
 
 
@@ -59,7 +64,7 @@ export interface CommonConfiguration<TPluginType> {
 }
 
 export interface CommonBuilder {
-  getPlugin: () => GeneratedPlugin
+  getPlugin: () => Promise<GeneratedPlugin>
 }
 
 export interface PluginDirectory {
