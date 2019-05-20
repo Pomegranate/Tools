@@ -32,11 +32,16 @@ function createPluginState(state: any) {
   }
 }
 
-export interface BuiltPlugin {
-  builder: string
-  state: any,
+export interface CreationMetadata {
   providedValues: any,
   errorsFrom: {[key: string]: Error}
+}
+
+export interface CreatedPlugin {
+  builder: string
+  state: any,
+  creationMetadata: CreationMetadata
+
 }
 
 export class Builder {
@@ -80,7 +85,7 @@ export class Builder {
     return this
   }
 
-  async getPlugin(): Promise<BuiltPlugin> {
+  async getPlugin(): Promise<CreatedPlugin> {
     let validState = await this.validator(this.state)
     let errorsFrom = null
     try {
@@ -97,8 +102,10 @@ export class Builder {
     return {
       builder: this.builder,
       state: validState,
-      providedValues: this.state,
-      errorsFrom: errorsFrom
+      creationMetadata: {
+        providedValues: this.state,
+        errorsFrom: errorsFrom
+      }
     }
   }
 }
