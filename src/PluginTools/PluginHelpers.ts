@@ -63,6 +63,7 @@ export const configPath = (plugin) => {
 export const getConfigFilePath = (plugin): string => {
   console.log(plugin)
   let Parents = get('loadMetadata.parents', plugin)
+  console.log(Parents)
   let BaseFile: string = Parents.length ? first(Parents) : fqDeclaredName(plugin.computedMetadata.name)
   let Namespace = get('loadMetadata.namespace', plugin)
   return Namespace ? `${Namespace}/${BaseFile}` : BaseFile
