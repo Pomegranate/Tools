@@ -16,7 +16,7 @@ export const hasParents = (parents) => {
   return !!(parents.length)
 }
 
-export const getFqn = get('computed.fqn')
+export const getFqn = get('computedMetadata.fqn')
 
 export const fqDeclaredName = memoize((fqn: string[]): string => {
   return last(fqn)
@@ -61,6 +61,7 @@ export const configPath = (plugin) => {
 }
 
 export const getConfigFilePath = (plugin): string => {
+  console.log(plugin)
   let Parents = get('loadMetadata.parents', plugin)
   let BaseFile: string = Parents.length ? first(Parents) : fqDeclaredName(plugin.computedMetadata.name)
   let Namespace = get('loadMetadata.namespace', plugin)
