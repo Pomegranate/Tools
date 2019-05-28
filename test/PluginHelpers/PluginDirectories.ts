@@ -9,70 +9,312 @@ import {directoryBasePath} from "../../src";
 
 
 describe('Plugin Directory base path', function () {
-  test('Namespaced Multiple Plugin', () => {
-    let plugin = {state:{
-      parents: ['A', 'B'],
-      namespace: '@pom-test',
-      configuration:
+  test('Namespaced Application Plugin', () => {
+    let plugin = {
+      builder: 'InjectableBuilder',
+      state:
         {
-          name: [
-            '@pom-test',
-            'A',
-            'B',
-            'CoolPlugin'
-          ]
+          variables: {},
+          directories: [],
+          configuration:
+            {
+              name: 'CoolPlugin',
+              type: 'anything',
+              injectableParam: 'CoolPlugin',
+              injectableScope: 'global',
+              frameworkPlugin: false,
+              applicationMember: null,
+              depends: [],
+              provides: [],
+              optional: []
+            },
+          hooks: {
+            load: () => {
+            }, start: () => {
+            }, stop: () => {
+            }
+          },
+          commands: null,
+          installs: [],
+          dashboard: {}
+        },
+      creationMetadata:
+        {
+          providedValues:
+            {
+              variables: {},
+              directories: [],
+              configuration: {
+                name: 'CoolPlugin',
+                type: 'anything',
+                injectableParam: 'CoolPlugin',
+                injectableScope: 'global',
+                frameworkPlugin: false,
+                applicationMember: null,
+                depends: [],
+                provides: [],
+                optional: []
+              },
+              hooks: {
+                load: () => {
+                }, start: () => {
+                }, stop: () => {
+                }
+              },
+              commands: {}
+            },
+          errorsFrom: null
+        },
+      loadMetadata:
+        {
+          parents: ['A', 'B'],
+          moduleSrc: 'CoolPlugin.js',
+          namespace: '@pom-test',
+          loadSrc: 'local',
+          application: false
+        },
+      computedMetadata:
+        {
+          fqn: ['@pom-test', 'A', 'B', 'CoolPlugin'],
+          name: ['@pom-test', 'A', 'B', 'CoolPlugin'],
+          baseDirectory: '/',
+          projectDirectory: '/',
+          buildDirectory: '/'
         }
-    }}
+    }
     let path = directoryBasePath(plugin)
 
     expect(path).toEqual('@pom-test/A/B/CoolPlugin')
   })
 
   test('Namespaced Plugin', () => {
-    let plugin = {state:{
-      parents: [],
-      namespace: '@pom-test',
-      configuration:
+    let plugin =  {
+      builder: 'InjectableBuilder',
+      state:
         {
-          name: [
-            '@pom-test',
-            'CoolPlugin'
-          ]
+          variables: {},
+          directories: [],
+          configuration:
+            {
+              name: 'CoolPlugin',
+              type: 'anything',
+              injectableParam: 'CoolPlugin',
+              injectableScope: 'global',
+              frameworkPlugin: false,
+              applicationMember: null,
+              depends: [],
+              provides: [],
+              optional: []
+            },
+          hooks: {
+            load: () => {
+            }, start: () => {
+            }, stop: () => {
+            }
+          },
+          commands: null,
+          installs: [],
+          dashboard: {}
+        },
+      creationMetadata:
+        {
+          providedValues:
+            {
+              variables: {},
+              directories: [],
+              configuration: {
+                name: 'CoolPlugin',
+                type: 'anything',
+                injectableParam: 'CoolPlugin',
+                injectableScope: 'global',
+                frameworkPlugin: false,
+                applicationMember: null,
+                depends: [],
+                provides: [],
+                optional: []
+              },
+              hooks: {
+                load: () => {
+                }, start: () => {
+                }, stop: () => {
+                }
+              },
+              commands: {}
+            },
+          errorsFrom: null
+        },
+      loadMetadata:
+        {
+          parents: [],
+          moduleSrc: 'CoolPlugin.js',
+          namespace: '@pom-test',
+          loadSrc: 'local',
+          application: false
+        },
+      computedMetadata:
+        {
+          fqn: ['@pom-test', 'CoolPlugin'],
+          name: ['@pom-test', 'CoolPlugin'],
+          baseDirectory: '/',
+          projectDirectory: '/',
+          buildDirectory: '/'
         }
-    }}
+    }
     let path = directoryBasePath(plugin)
 
     expect(path).toEqual('@pom-test/CoolPlugin')
   })
 
   test('Local Multiple Plugin', () => {
-    let plugin = {state:{
-      parents: ['A', 'B'],
-      namespace: null,
-      configuration:
+    let plugin =  {
+      builder: 'InjectableBuilder',
+      state:
         {
-          name: [
-            'A',
-            'B',
-            'CoolPlugin'
-          ]
+          variables: {},
+          directories: [],
+          configuration:
+            {
+              name: 'CoolPlugin',
+              type: 'anything',
+              injectableParam: 'CoolPlugin',
+              injectableScope: 'global',
+              frameworkPlugin: false,
+              applicationMember: null,
+              depends: [],
+              provides: [],
+              optional: []
+            },
+          hooks: {
+            load: () => {
+            }, start: () => {
+            }, stop: () => {
+            }
+          },
+          commands: null,
+          installs: [],
+          dashboard: {}
+        },
+      creationMetadata:
+        {
+          providedValues:
+            {
+              variables: {},
+              directories: [],
+              configuration: {
+                name: 'CoolPlugin',
+                type: 'anything',
+                injectableParam: 'CoolPlugin',
+                injectableScope: 'global',
+                frameworkPlugin: false,
+                applicationMember: null,
+                depends: [],
+                provides: [],
+                optional: []
+              },
+              hooks: {
+                load: () => {
+                }, start: () => {
+                }, stop: () => {
+                }
+              },
+              commands: {}
+            },
+          errorsFrom: null
+        },
+      loadMetadata:
+        {
+          parents: [],
+          moduleSrc: 'CoolPlugin.js',
+          namespace: null,
+          loadSrc: 'local',
+          application: false
+        },
+      computedMetadata:
+        {
+          fqn: ['A','B', 'CoolPlugin'],
+          name: ['A','B', 'CoolPlugin'],
+          baseDirectory: '/',
+          projectDirectory: '/',
+          buildDirectory: '/'
         }
-    }}
+    }
     let path = directoryBasePath(plugin)
     expect(path).toEqual('A/B/CoolPlugin')
   })
 
   test('Local Plugin', () => {
-    let plugin = {state:{
-      parents: [],
-      namespace: null,
-      configuration:
+    let plugin =  {
+      builder: 'InjectableBuilder',
+      state:
         {
-          name: [
-            'CoolPlugin'
-          ]
+          variables: {},
+          directories: [],
+          configuration:
+            {
+              name: 'CoolPlugin',
+              type: 'anything',
+              injectableParam: 'CoolPlugin',
+              injectableScope: 'global',
+              frameworkPlugin: false,
+              applicationMember: null,
+              depends: [],
+              provides: [],
+              optional: []
+            },
+          hooks: {
+            load: () => {
+            }, start: () => {
+            }, stop: () => {
+            }
+          },
+          commands: null,
+          installs: [],
+          dashboard: {}
+        },
+      creationMetadata:
+        {
+          providedValues:
+            {
+              variables: {},
+              directories: [],
+              configuration: {
+                name: 'CoolPlugin',
+                type: 'anything',
+                injectableParam: 'CoolPlugin',
+                injectableScope: 'global',
+                frameworkPlugin: false,
+                applicationMember: null,
+                depends: [],
+                provides: [],
+                optional: []
+              },
+              hooks: {
+                load: () => {
+                }, start: () => {
+                }, stop: () => {
+                }
+              },
+              commands: {}
+            },
+          errorsFrom: null
+        },
+      loadMetadata:
+        {
+          parents: [],
+          moduleSrc: 'CoolPlugin.js',
+          namespace: null,
+          loadSrc: 'local',
+          application: false
+        },
+      computedMetadata:
+        {
+          fqn: ['CoolPlugin'],
+          name: ['CoolPlugin'],
+          baseDirectory: '/',
+          projectDirectory: '/',
+          buildDirectory: '/'
         }
-    }}
+    }
     let path = directoryBasePath(plugin)
     expect(path).toEqual('CoolPlugin')
   })
