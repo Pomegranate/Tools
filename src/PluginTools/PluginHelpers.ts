@@ -17,7 +17,7 @@ export const hasParents = (parents) => {
   return !!(parents.length)
 }
 
-export const getFqn = get('computedMetadata.fqn')
+export const getFqn = get<any, any>('computedMetadata.fqn')
 
 export const fqDeclaredName = memoize((fqn: string[]): string => {
   return last(fqn)
